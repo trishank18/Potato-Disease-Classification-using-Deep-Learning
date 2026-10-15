@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Potato Disease Classification</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #20261f; background: #f3f6f1; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; box-sizing: border-box; }
+    main { width: min(100%, 560px); box-sizing: border-box; padding: 32px; background: white; border-radius: 18px; box-shadow: 0 12px 40px #20391a18; }
+    h1 { margin: 0 0 8px; color: #285b32; }
+    p { color: #5f685e; line-height: 1.5; }
+    form { margin-top: 24px; display: grid; gap: 14px; }
+    input[type=file] { padding: 14px; background: #f7f9f6; border: 1px solid #d9e1d6; border-radius: 10px; }
+    button { border: 0; border-radius: 10px; padding: 13px 18px; color: white; background: #347b3c; font-weight: 650; cursor: pointer; }
+    button:hover { background: #286431; }
+    .error { color: #a32626; background: #fff1f0; padding: 12px; border-radius: 8px; }
+    .result { margin-top: 24px; padding: 18px; background: #eff7ee; border-radius: 12px; }
+    .result h2 { margin: 0 0 6px; font-size: 1.1rem; color: #285b32; }
+    .result p { margin: 0; }
+    img { display: block; max-width: 100%; max-height: 320px; object-fit: contain; border-radius: 10px; margin: 18px auto 0; }
+    small { color: #70796f; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Potato Disease Classification</h1>
+    <p>Upload a potato leaf photo to classify it as early blight, late blight, or healthy.</p>
+    <form method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept=".jpg,.jpeg,.png" required>
+      <small>JPG or PNG, up to 8 MB.</small>
+      <button type="submit">Classify image</button>
+    </form>
+    {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+    {% if result %}
+      <section class="result" aria-live="polite">
+        <h2>Prediction: {{ result.label }}</h2>
+        <p>Confidence: {{ result.confidence }}%</p>
+        {% if preview %}<img src="{{ preview }}" alt="Uploaded potato leaf">{% endif %}
+      </section>
+    {% endif %}
+  </main>
+</body>
+</html>

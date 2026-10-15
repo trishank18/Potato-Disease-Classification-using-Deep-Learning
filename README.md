@@ -28,8 +28,7 @@ In the agriculture industry, farmers often face challenges in identifying diseas
 - OpenCV
 - Pillow
 - Numpy
-- Matplotlib
-- Streamlit
+- Flask
 
 <br />
 
@@ -37,14 +36,8 @@ In the agriculture industry, farmers often face challenges in identifying diseas
 
 To run this project, you need to install the following packages:
 
-```python
-pip install tensorflow
-pip install opencv-python
-pip install pillow
-pip install numpy
-pip install matplotlib
-pip install streamlit
-pip install streamlit_extras
+```bash
+pip install -r requirements.txt
 ```
 
 **Note:** If you face "ImportError: DLL load failed" error while installing TensorFlow,
@@ -61,8 +54,14 @@ To use this project, follow these steps:
 
 1. Clone the repository: ```git clone https://github.com/gopiashokan/Potato-Disease-Classification-using-Deep-Learning.git```
 2. Install the required packages: ```pip install -r requirements.txt```
-3. Run the Streamlit app: ```streamlit run app.py```
-4. Access the app in your browser at ```http://localhost:8501```
+3. Start the Flask app: ```python app.py```
+4. Open ```http://127.0.0.1:5000``` in your browser.
+
+### Build the offline Android app
+
+The Android project is in `android-app/` and includes a TensorFlow Lite copy of the trained model. Open that folder in Android Studio, allow Gradle to sync and install Android SDK Platform 35 if prompted, then choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. The debug APK is created at `android-app/app/build/outputs/apk/debug/app-debug.apk`.
+
+The Android app performs predictions on the device and does not need the Flask server or an internet connection after installation.
 
 <br />
 
@@ -93,8 +92,7 @@ To use this project, follow these steps:
 
 
 #### Model Deployment and Inference:
-   - Following the completion of model training and evaluation, the trained model is saved to enable seamless deployment and inference on new images for classification purposes. To facilitate this process, a user-friendly Streamlit application is developed and deployed on the Hugging Face platform. 
-   - This application empowers users to upload new images and obtain real-time classification results, providing a convenient interface for leveraging the model's capabilities in practical scenarios.
+   - Following model training and evaluation, the trained model is saved as `model.h5`. The Flask application in `app.py` loads it and provides a browser interface for image uploads and real-time classification.
 
 <br />
 
