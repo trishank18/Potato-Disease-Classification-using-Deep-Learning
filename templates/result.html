@@ -8,17 +8,17 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✳</span> Fieldnote <span class="brand-divider">/</span> Plant health lab</a><span class="status"><i></i> Analysis complete</span></header>
+  <header class="topbar"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✳</span><span>Fieldnote <small>PLANT HEALTH LAB</small></span></a><nav><a class="nav-link active" href="{{ url_for('home') }}">Analyzer</a><span class="status"><i></i> Analysis complete</span></nav></header>
   <main class="page-wrap result-page">
-    <section class="result-heading"><span class="eyebrow">IMAGE ANALYSIS · RESULT</span><h1>Your leaf, <em>observed.</em></h1><p>The disease classifier's highest scoring match is shown below.</p></section>
+    <section class="result-heading"><span class="eyebrow">IMAGE ANALYSIS / RESULT</span><h1>Your leaf, <em>observed.</em></h1><p>The disease classifier's highest scoring match is shown below.</p></section>
     <section class="result-card">
-      <div class="result-photo"><img src="{{ result.image_url }}" alt="Uploaded image"></div>
+      <div class="result-photo"><span class="photo-label">UPLOADED SPECIMEN</span><img src="{{ result.image_url }}" alt="Uploaded potato leaf image"><span class="photo-note">RGB scan · 128 × 128 input</span></div>
       <div class="result-info">
-        <span class="result-kicker">HIGHEST SCORING CLASS</span>
+        <span class="result-kicker">HIGHEST SCORING CLASS</span><span class="result-badge">● MODEL MATCH</span>
         <h2>{{ result.label }}</h2>
         <div class="confidence-line"><span>Disease classifier softmax score</span><strong>{{ "%.1f"|format(result.score) }}%</strong></div>
         <div class="meter"><span style="width: {{ result.score }}%"></span></div>
-        <div class="probabilities"><span class="result-kicker">DISEASE CLASS SCORES</span>{% for label, score in result.probabilities %}<div class="prob-row"><span>{{ label }}</span><span>{{ "%.1f"|format(score) }}%</span></div>{% endfor %}</div>
+        <div class="probabilities"><span class="result-kicker">DISEASE CLASS SCORES</span>{% for label, score in result.probabilities %}<div class="prob-row"><div><span>{{ label }}</span><span class="score">{{ "%.1f"|format(score) }}%</span></div><span class="mini-meter"><i style="width: {{ score }}%"></i></span></div>{% endfor %}</div>
         <p class="result-disclaimer">This classifier always selects among Early Blight, Late Blight, and Healthy, even for unrelated images. Softmax scores are not necessarily calibrated probabilities of correctness and do not guarantee a correct result. Educational use only; consult an agricultural expert.</p>
       </div>
     </section>

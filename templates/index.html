@@ -9,20 +9,20 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✳</span> Fieldnote <span class="brand-divider">/</span> Plant health lab</a><span class="status"><i></i> CNN image analysis</span></header>
+  <header class="topbar"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✳</span><span>Fieldnote <small>PLANT HEALTH LAB</small></span></a><nav><a class="nav-link active" href="{{ url_for('home') }}">Analyzer</a><span class="status"><i></i> CNN ready</span></nav></header>
   <main class="page-wrap">
-    <section class="hero"><div class="hero-copy"><span class="eyebrow">POTATO • LEAF HEALTH</span><h1>A closer look at<br><em>healthier harvests.</em></h1><p>Upload a potato leaf image for an AI-assisted check for Early Blight, Late Blight, or healthy foliage.</p><div class="hero-meta"><span>◉ &nbsp; 3 classifications</span><span>↗ &nbsp; 128 × 128 image analysis</span></div></div><div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="leaf-shape leaf-one"></div><div class="leaf-shape leaf-two"></div><div class="leaf-shape leaf-three"></div><div class="art-label">OBSERVE<br><b>GROW</b></div></div></section>
+    <section class="hero"><div class="hero-copy"><span class="eyebrow">POTATO / LEAF HEALTH</span><h1>Know your crop.<br><em>Grow with confidence.</em></h1><p>Upload a clear potato leaf image and get an AI-assisted screening for Early Blight, Late Blight, or healthy foliage.</p><div class="hero-meta"><span><b>01</b> Upload a leaf</span><span><b>02</b> Get an instant screen</span></div></div><div class="hero-art" aria-hidden="true"><div class="art-grid"></div><div class="sun"></div><div class="leaf-shape leaf-one"></div><div class="leaf-shape leaf-two"></div><div class="leaf-shape leaf-three"></div><div class="art-label">FIELDNOTE<br><b>01 / 03</b></div><div class="art-stamp">PLANT<br>VISION</div></div></section>
     {% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
     <section class="workspace">
-      <div class="section-heading"><div><span class="eyebrow">IMAGE CHECK</span><h2>Start with a leaf</h2></div><span class="step-tag">01 <span> / 01</span></span></div>
+      <div class="section-heading"><div><span class="eyebrow">IMAGE CHECK</span><h2>Start with a leaf</h2><p>Best results come from a well-lit, close-up image.</p></div><span class="step-tag">01 <span> / 01</span></span></div>
       {% if not model_ready %}<div class="notice"><strong>Model setup needed</strong><span>{{ model_error or "Prepare the disease dataset and train the model before uploading an image." }}</span></div>{% endif %}
       <form id="upload-form" action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
         <label class="dropzone" for="image-input" id="dropzone">
           <input id="image-input" type="file" name="image" accept="image/png,image/jpeg" required>
-          <div class="upload-icon">↑</div><div class="drop-copy"><strong>Choose a leaf image</strong><span>or drag and drop it here</span><small>PNG, JPG or JPEG · up to 8 MB</small></div>
+          <div class="upload-icon">↑</div><div class="drop-copy"><strong>Choose a leaf image</strong><span>or drag and drop it here</span><small>PNG, JPG or JPEG <i>•</i> up to 8 MB</small></div>
           <img id="image-preview" alt="Selected leaf preview" hidden>
         </label>
-        <div class="form-bottom"><span class="privacy-note">Images are used only for this prediction.</span><button class="button button-primary" type="submit" {% if not model_ready %}disabled{% endif %}>Analyze leaf <span>↗</span></button></div>
+        <div class="form-bottom"><span class="privacy-note"><span class="privacy-dot">✓</span> Private, single-image analysis</span><button class="button button-primary" type="submit" {% if not model_ready %}disabled{% endif %}>Analyze leaf <span>↗</span></button></div>
         <div id="loading" class="loading" hidden><span class="spinner"></span> Reading the leaf image…</div>
       </form>
     </section>
