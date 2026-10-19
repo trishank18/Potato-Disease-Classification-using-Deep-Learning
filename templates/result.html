@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analysis result · Potato Leaf Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✳</span> Fieldnote <span class="brand-divider">/</span> Plant health lab</a><span class="status"><i></i> Analysis complete</span></header>
+  <main class="page-wrap result-page">
+    <section class="result-heading"><span class="eyebrow">IMAGE ANALYSIS · RESULT</span><h1>Your leaf, <em>observed.</em></h1><p>The disease classifier's highest scoring match is shown below.</p></section>
+    <section class="result-card">
+      <div class="result-photo"><img src="{{ result.image_url }}" alt="Uploaded image"></div>
+      <div class="result-info">
+        <span class="result-kicker">HIGHEST SCORING CLASS</span>
+        <h2>{{ result.label }}</h2>
+        <div class="confidence-line"><span>Disease classifier softmax score</span><strong>{{ "%.1f"|format(result.score) }}%</strong></div>
+        <div class="meter"><span style="width: {{ result.score }}%"></span></div>
+        <div class="probabilities"><span class="result-kicker">DISEASE CLASS SCORES</span>{% for label, score in result.probabilities %}<div class="prob-row"><span>{{ label }}</span><span>{{ "%.1f"|format(score) }}%</span></div>{% endfor %}</div>
+        <p class="result-disclaimer">This classifier always selects among Early Blight, Late Blight, and Healthy, even for unrelated images. Softmax scores are not necessarily calibrated probabilities of correctness and do not guarantee a correct result. Educational use only; consult an agricultural expert.</p>
+      </div>
+    </section>
+    <div class="result-actions"><a class="button button-primary" href="{{ url_for('home') }}">Analyze another image <span>↗</span></a><a class="text-link" href="{{ url_for('home') }}">← Back to home</a></div>
+  </main>
+  <footer><span>Fieldnote Plant Health Lab</span><span>Educational tool only · Not a substitute for expert agricultural advice</span></footer>
+</body>
+</html>
